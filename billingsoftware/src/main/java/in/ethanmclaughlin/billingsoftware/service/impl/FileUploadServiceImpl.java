@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
-import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
@@ -37,7 +36,6 @@ public class FileUploadServiceImpl implements  FileUploadService {
             PutObjectRequest putobjectrequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
-                .acl(ObjectCannedACL.PUBLIC_READ)
                 .contentType(file.getContentType())
                 .build();
             PutObjectResponse response = s3client.putObject(putobjectrequest, RequestBody.fromBytes(file.getBytes()));
