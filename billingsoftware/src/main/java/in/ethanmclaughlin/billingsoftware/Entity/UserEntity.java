@@ -17,34 +17,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+
 @Entity
-@Table(name="tbl_category")
+@Table(name ="tbl_users")
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CategoryEntity {
-
-   
+@NoArgsConstructor
+public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY) 
     private long id;
-   
-    @Column(unique =true)
-    private String categoryId;
-    @Column(unique =true)
+
+    @Column(unique = true)
+    private String userId;
+    private String email;
+    private String password;
+    private String role;
     private String name;
-    private String description;
-    private String bgColor;
-    private String imgUrl;
     @CreationTimestamp
     @Column(updatable=false)
-    private Timestamp  createdAt;
+    private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-
-    
 
 }
