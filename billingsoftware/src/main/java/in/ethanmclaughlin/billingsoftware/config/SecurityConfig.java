@@ -33,18 +33,18 @@ public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
   
 
-     @Bean
-     public SecurityFilterChain securityfilterChain(HttpSecurity http) throws Exception{
-        http.cors(Customizer.withDefaults())
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/encode", "/api/v1.0/encode", "/api/v1.0/login").permitAll()
-                .requestMatchers("/category", "/items").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-                return http.build();
-    }
+    @Bean
+public SecurityFilterChain securityfilterChain(HttpSecurity http) throws Exception{
+   http.cors(Customizer.withDefaults())
+       .csrf(AbstractHttpConfigurer::disable)
+       .authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/encode").permitAll()
+           .requestMatchers("/category", "/categories", "/api/v1.0/category", "/api/v1.0/categories", "/items", "/api/v1.0/items").hasAnyRole("USER", "ADMIN")
+           .requestMatchers("/admin/**", "/api/v1.0/admin/**").hasRole("ADMIN")
+           .anyRequest().authenticated())
+           .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+           .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+           return http.build();
+}
 
 
     @Bean

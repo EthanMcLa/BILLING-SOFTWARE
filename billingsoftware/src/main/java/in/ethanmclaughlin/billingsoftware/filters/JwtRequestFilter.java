@@ -26,13 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        
-        // Skip filter for login and encode endpoints
-        String path = request.getRequestURI();
-        if (path.contains("/login") || path.contains("/encode")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+      
         
         final String authorizationHeader = request.getHeader("Authorization");
 

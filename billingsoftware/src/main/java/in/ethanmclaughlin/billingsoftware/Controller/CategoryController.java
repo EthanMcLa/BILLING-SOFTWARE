@@ -22,13 +22,14 @@ import in.ethanmclaughlin.billingsoftware.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+
 @RequiredArgsConstructor
 
 public class CategoryController {
 
     private final CategoryService categoryservice;
 
-    @PostMapping("/admin/categories")
+    @PostMapping("admin/categories")
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryResponse addCategory(@RequestPart("category") String categoryString, @RequestPart("file") MultipartFile file) {
         ObjectMapper objectMapper = new ObjectMapper();   
@@ -44,7 +45,7 @@ public class CategoryController {
 
         }
 
-        @GetMapping
+        @GetMapping("/categories")
         public List<CategoryResponse>  fetchCategories(){
             return categoryservice.read();
 
