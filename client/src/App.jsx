@@ -6,6 +6,7 @@ import ManageUsers from "./pages/Explore/DashBoard/ManageUsers/ManageUsers";
 import Manageitems from "./pages/Explore/DashBoard/ManageUsers/ManageCategory/ManageItems/ManageItems";
 import Explore from "./pages/Explore/Explore";
 import { Toaster } from 'react-hot-toast';
+import Login from "./pages/Explore/Login/Login";
 const App = () => {
   return (
     <div> 
@@ -17,7 +18,9 @@ const App = () => {
         <Route path="/users" element={<ManageUsers /> }/>
         <Route path="/Items" element={<Manageitems/> }/>
         <Route path="/Explore" element={<Explore /> }/>
+        <Route path="/login" element={<Login /> }/>
         <Route path="/" element={<Dashboard /> }/>
+         
       </Routes>
     </div> 
   );
