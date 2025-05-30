@@ -1,27 +1,39 @@
 import { createContext, useEffect, useState } from "react";
 import {fetchCategories} from "../Service/CategoryService.js";
 
-export const  AppContext = createContext(null);
+export const AppContext = createContext(null);
 
 export const AppContextProvider = (props) => {
-const [categories, setCategories] = useState([]);
-
-        useEffect(() =>  {
-       async function loadData() {
-        const response = await fetchCategories();
-        setCategories(response.data);
-       }
-        loadData()
-    },
- []);
+    const [categories, setCategories] = useState([]);
+    const [auth, setAuth] = useState({token: null, role: null});
     
-    const contextValue = {
-        categories,
-        setCategories
+    useEffect(() => {
+        async function loadData() {
+            try {
+                const response = await fetchCategories();
+                setCategories(response.data);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        }
+        loadData();
+    }, []);
+    
+    const setAuthData = (token, role) => {  
+        setAuth({ token, role });  
     }
 
-    return <AppContext.Provider value={contextValue}>
-        {props.children} 
+    const contextValue = {
+        categories,
+        setCategories,
+        auth,
+        setAuthData  
+    }
 
-    </AppContext.Provider>
+    return (
+        <AppContext.Provider value={contextValue}>
+            {props.children}
+        </AppContext.Provider>
+    );
 }
+
