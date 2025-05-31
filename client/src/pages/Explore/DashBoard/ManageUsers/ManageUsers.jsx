@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UserForm from '../../../../components/Menubar/UserForm/UserForm';
-import UsersList from '../../../../components/Menubar/UsersList/UsersList';
+    import UsersList from '../../../../components/Menubar/UsersList/UsersList';
 import './ManageUsers.css';
 import toast from "react-hot-toast";
+import { fetchUsers } from '../../../../Service/UserService';
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        async function fetchUsers() {
+        async function loadUsers() {
             try {
                 setLoading(true);
                 const response = await fetchUsers();
@@ -21,8 +22,8 @@ const ManageUsers = () => {
             }
 
         }
-        fetchUsers();
-    })
+        loadUsers();
+    }, []);
     
     return (
          <div className="users-container text-light">

@@ -1,4 +1,8 @@
-import {useState} from "react";
+
+import { useState } from "react";
+import { addUsers } from "../../../Service/UserService"; 
+import toast from "react-hot-toast"; 
+
 
 const UserForm = ({setUsers}) => {
 const  [loading, setLoading] = useState(false);
@@ -20,8 +24,8 @@ const [data, setData] = useState({
         setLoading(true);
 
         try {
-          const reponse = await addUsers(data);
-          setUsers((prevUsers) => [...users, prevUsers, response]);
+          const response = await addUsers(data);
+          setUsers((prevUsers) => [...prevUsers, response.data]);
           toast.success("User added successfully");
             setData( {
                 name: "",
@@ -31,7 +35,7 @@ const [data, setData] = useState({
             });
             } catch(e) {
             console.error(e);
-            toast.error(e.messsage);
+            toast.error("Error Adding User");
         } finally {
             setLoading(false);
         }
