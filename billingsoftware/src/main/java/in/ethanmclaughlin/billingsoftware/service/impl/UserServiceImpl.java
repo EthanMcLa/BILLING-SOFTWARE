@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import in.ethanmclaughlin.billingsoftware.Entity.UserEntity;
@@ -12,9 +14,6 @@ import in.ethanmclaughlin.billingsoftware.io.UserRequest;
 import in.ethanmclaughlin.billingsoftware.io.UserResponse;
 import in.ethanmclaughlin.billingsoftware.service.UserService;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Service
@@ -43,10 +42,7 @@ public class UserServiceImpl implements UserService {
         .updatedAt(newUser.getUpdatedAt())
         .role(newUser.getRole())
         .build();
-        
-
-
-    }
+            }
 
     private UserEntity convertyToEntity(UserRequest request) {
       return  UserEntity.builder()
