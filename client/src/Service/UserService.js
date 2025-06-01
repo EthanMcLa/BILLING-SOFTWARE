@@ -8,9 +8,11 @@ export const addUsers = async (userData) => {
   });
 };
 export const deleteUser = async (id) => {
-    return await axios.delete('http:/localhost:8080/api/v1.0/admin/users/${id}',{ headers: {
+    return await axios.delete(`http://localhost:8080/api/v1.0/admin/users/${id}`, { 
+        headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }})
+        }
+    });
 }
 
 

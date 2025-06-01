@@ -1,5 +1,6 @@
 import { useState, useEffect} from "react";
 import toast from "react-hot-toast";
+import { deleteUser } from "../../../Service/UserService";
 
 const UsersList = ({users, setUsers}) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -8,7 +9,7 @@ const UsersList = ({users, setUsers}) => {
     
     const filterUsers = users.filter(user => {
     
-        user.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return user.name.toLowerCase().includes(searchTerm.toLowerCase());
         
     }); 
     
@@ -19,8 +20,8 @@ const UsersList = ({users, setUsers}) => {
 
                     await deleteUser(id);
                     setUsers(prevUsers => prevUsers.filter(user => user.userId !== id));
-                    toast.sucess("User deleted");
-                
+                    toast.success("User deleted");
+                       
                 }  catch(e) {
                     console.error(e);
                     toast.error("Unable To delete the user");
