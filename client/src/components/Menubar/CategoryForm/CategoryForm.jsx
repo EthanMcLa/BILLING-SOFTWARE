@@ -15,9 +15,7 @@ const CategoryForm = () => {
         bgColor: "#2c2c2c",
     });
 
-    useEffect(() =>  {
-        console.log(data);
-    })
+  
 
     const onChangeHandler = (e) => {
         const value = e.target.value;
@@ -36,7 +34,7 @@ const CategoryForm = () => {
         formData.append("category", JSON.stringify(data));
         formData.append("file", image);
         try {   
-           const response = await addCategory(formData)
+           const response = await addCategory(formData);
             if(response.status === 201) {
                 setCategories([...categories, response.data]);
                 toast.success("Category added successfully.");

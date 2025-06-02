@@ -1,25 +1,44 @@
 import { createContext, useEffect, useState } from "react";
 import {fetchCategories} from "../Service/CategoryService.js";
+import { fetchItems } from "../Service/ItemService.js";
 
 export const AppContext = createContext(null);
 
 export const AppContextProvider = (props) => {
     const [categories, setCategories] = useState([]);
-    const [auth, setAuth] = useState({token: null, role: null});
+    const [itemsData, setItemsData] = useState([]);
+    const [auth, setAuth] = useState({
+        token: localStorage.getItem('token'), 
+        role: localStorage.getItem('role')
+    });
     
     useEffect(() => {
         async function loadData() {
             try {
-                const response = await fetchCategories();
-                setCategories(response.data);
+         
+                if (auth.token) {
+                    console.log("Fetching with token:", auth.token);
+                    const response = await fetchCategories();
+                    setCategories(response.data);
+                    
+                    try {
+                        const itemResponse = await fetchItems();
+                        setItemsData(itemResponse.data);
+                    } catch (itemError) {
+                        console.error("Error fetching items:", itemError);
+                  
+                    }
+                }
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
         }
         loadData();
-    }, []);
+    }, [auth.token]); 
     
     const setAuthData = (token, role) => {  
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
         setAuth({ token, role });  
     }
 
@@ -27,7 +46,9 @@ export const AppContextProvider = (props) => {
         categories,
         setCategories,
         auth,
-        setAuthData  
+        setAuthData,
+        itemsData,
+        setItemsData  
     }
 
     return (
@@ -37,3 +58,4 @@ export const AppContextProvider = (props) => {
     );
 }
 
+    

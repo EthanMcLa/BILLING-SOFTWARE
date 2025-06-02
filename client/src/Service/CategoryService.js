@@ -1,13 +1,15 @@
 import axios from "axios";
 
 
-export const addCategory = async (category) => {
-  return await axios.post('http://localhost:8080/api/v1.0/admin/categories', category, {
+export const addCategory = async (formData) => {
+  return await axios.post('http://localhost:8080/api/v1.0/admin/categories', formData, {
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'multipart/form-data' 
     }
   });
-}
+};
+
 
 
 export const deleteCategory = async (categoryId) => {
@@ -18,11 +20,10 @@ export const deleteCategory = async (categoryId) => {
  });
 }
 
-
 export const fetchCategories = async () => {
-    return await axios.get('http://localhost:8080/api/v1.0/categories', {
-         headers: {
+  return await axios.get('http://localhost:8080/api/v1.0/categories', {
+    headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
-    });
-}   
+  });
+};
