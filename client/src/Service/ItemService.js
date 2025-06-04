@@ -1,11 +1,14 @@
 import axios from "axios";
 
-export const addItem = async (item) => {
-    return await axios.post('http://localhost:8080/api/v1.0/admin/items', item, {
+export const addItem = async (formData) => {
+    return await axios.post('http://localhost:8080/api/v1.0/admin/items', formData, {
         headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }});
-    }
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+           
+        }
+    });
+}
+
 
 export const deleteItem = async (itemId) => {
     return await axios.delete(`http://localhost:8080/api/v1.0/admin/items/${itemId}`, {
@@ -17,7 +20,7 @@ export const deleteItem = async (itemId) => {
 
 
 export const fetchItems = async () => {
-    return await axios.get('https://localhost:8080/api/v1.0/items',{
+    return await axios.get('http://localhost:8080/api/v1.0/items',{
          headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

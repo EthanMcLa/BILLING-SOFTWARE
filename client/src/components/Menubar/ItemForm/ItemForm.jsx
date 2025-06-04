@@ -4,7 +4,7 @@ import {assets} from "../../../assets/assets.js";
 import { AppContext } from "../../../context/AppContext";
 import toast from "react-hot-toast";
 const ItemForm = () => {
-    const {categories, setItemsData, itemsData} = useContext(AppContext);
+    const {categories, setItemsData, itemsData, setCategories} = useContext(AppContext);
     const [image, setImage] = useState(false);
     const[loading, setLoading] = useState(false);
     const [data, setData] = useState({
@@ -25,7 +25,7 @@ const onChangeHandler = (e) => {
         setLoading(true);
         const formData = new FormData();
   formData.append("item", JSON.stringify(data)); 
- formData.append("file", image);
+ formData.append("image", image);
 
         try {
             if (!image)  {
@@ -35,7 +35,8 @@ const onChangeHandler = (e) => {
          const response =  await addItem(formData);
          if(response.status === 201) {
             setItemsData([...itemsData, response.data]);
-            //TODO: updated the category state 
+            setCategories((prevCategories) => 
+            prevCategories.map((category) => category.categoryId === data.categoryId ? {...category, items: category.items + 1} : category));
             toast.success("Item added successfully");
             setData({
                 name: "",
