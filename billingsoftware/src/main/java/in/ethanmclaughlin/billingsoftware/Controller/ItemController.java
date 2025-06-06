@@ -36,21 +36,23 @@ public class ItemController {
        ItemRequest itemRequest = null;
     try {
         itemRequest =  objectMapper.readValue(itemString, ItemRequest.class);
-       return itemservice.add(itemRequest, file);
+        //Adding the Item and file to the database
+        return itemservice.add(itemRequest, file);
     } catch(JsonProcessingException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Error occured while processing the JSON");
     }
 } 
-
+    //We are getting the items from the database by retreiving them
     @GetMapping("/items")
     public List<ItemResponse> readItems() {
         return itemservice.fetchItem();
     }
-
+    //This will delete an item by passing in the item id from the URL we can delete the item successfully and return a no content if successful
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/admin/items/{itemId}")
     public void removeItem(@PathVariable String itemId) {
         try {
+           //This will delete the item from the database if successful
             itemservice.deleteItem(itemId);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item Not Found");

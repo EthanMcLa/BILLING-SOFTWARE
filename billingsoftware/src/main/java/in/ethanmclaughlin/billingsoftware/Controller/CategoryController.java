@@ -28,8 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class CategoryController {
 
     private final CategoryService categoryservice;
-
-    @PostMapping("/admin/categories")
+    //We would like to  post a category in the database 
+    @PostMapping("/categories")
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryResponse addCategory(@RequestPart("category") String categoryString, @RequestPart("file") MultipartFile file) {
         ObjectMapper objectMapper = new ObjectMapper();   
@@ -44,17 +44,18 @@ public class CategoryController {
         
 
         }
-
+            //This returns all items in the database
         @GetMapping("/categories")
         public List<CategoryResponse>  fetchCategories(){
             return categoryservice.read();
 
         }
-
+        //This will respond with a not content if the item if properly deleted
         @ResponseStatus(HttpStatus.NO_CONTENT)
         @DeleteMapping("/admin/categories/{categoryId}")
         public void delete(@PathVariable String categoryId ) {
                 try {
+                   //Delete the item in the database
                     categoryservice.delete(categoryId);
                 } catch (Exception e) {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category Not Found " + categoryId);

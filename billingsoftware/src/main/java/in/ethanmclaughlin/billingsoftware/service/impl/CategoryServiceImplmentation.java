@@ -73,7 +73,7 @@ public class CategoryServiceImplmentation implements CategoryService {
      CategoryEntity existingCategory =   CategoryRepository.findByCategoryId(categoryId)
         .orElseThrow(()-> new RuntimeException("Category not found: " + categoryId));
         fileuploadservice.deleteFile(existingCategory.getImgUrl());
-    CategoryRepository.delete(existingCategory);
+        CategoryRepository.delete(existingCategory);
     
     }
 

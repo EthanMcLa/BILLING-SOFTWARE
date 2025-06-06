@@ -45,7 +45,7 @@ public class FileUploadServiceImpl implements  FileUploadService {
             } else {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occured While Uploading The Image");
             }
-
+            
         } catch(IOException e)  {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occured while uploading the file");
         }

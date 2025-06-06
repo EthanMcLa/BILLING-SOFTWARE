@@ -11,7 +11,7 @@ public interface CategoryService {
 
     CategoryResponse add(CategoryRequest request, MultipartFile file);
 
-
+    
     List<CategoryResponse> read();
 
     void delete(String categoryId);
