@@ -9,7 +9,7 @@ import {useContext} from "react";
 
 const Explore = () => {
     const {categories} = useContext(AppContext);
-    console.log(categories);   
+    const [selectedCategory, setSelectedCategory] = useState("");
    
     return (
        <div className="explore-container text-light">
@@ -17,6 +17,9 @@ const Explore = () => {
 
             <div className="first-row" style={{overflowY: 'auto'}}>
                 <DisplayCategory categories={categories} />
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+                categories={categories}
             </div>
             <hr className="horizontal-line"/> 
             <div className="second-row"style={{overflowY: 'auto'}}>
