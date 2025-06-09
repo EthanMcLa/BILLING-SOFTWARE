@@ -5,7 +5,7 @@ import DisplayCategory from '../../components/Menubar/DisplayCategory/DisplayCat
 import DisplayItems from '../../components/Menubar/DisplayItems/DisplayItems';
 import { AppContext } from '../../context/AppContext';
 import './Explore.css';
-import {useContext} from "react";
+import {useContext, useState} from "react";
 
 const Explore = () => {
     const {categories} = useContext(AppContext);
@@ -16,10 +16,11 @@ const Explore = () => {
         <div className="left-column">
 
             <div className="first-row" style={{overflowY: 'auto'}}>
-                <DisplayCategory categories={categories} />
+                <DisplayCategory 
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
                 categories={categories}
+                 />
             </div>
             <hr className="horizontal-line"/> 
             <div className="second-row"style={{overflowY: 'auto'}}>
