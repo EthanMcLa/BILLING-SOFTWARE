@@ -11,7 +11,51 @@ export const AppContextProvider = (props) => {
         token: localStorage.getItem('token'), 
         role: localStorage.getItem('role')
     });
+
+    const [cartItems, setCartItems] = useState( []);
+
+const addToCart = (item) => {
+    console.log("Adding to cart:", item);
     
+    // Make sure we have all required fields
+    if (!item.itemId || !item.name || !item.price) {
+        console.error("Invalid item:", item);
+        return;
+    }
+    
+    setCartItems(prevCart => {
+        // Check if item already exists
+        const existingItemIndex = prevCart.findIndex(cartItem => cartItem.itemId === item.itemId);
+        
+        if (existingItemIndex >= 0) {
+            // Item exists, update quantity
+            const updatedCart = [...prevCart];
+            updatedCart[existingItemIndex] = {
+                ...updatedCart[existingItemIndex],
+                quantity: updatedCart[existingItemIndex].quantity + 1
+            };
+            console.log("Updated cart:", updatedCart);
+            return updatedCart;
+        } else {
+            // Item doesn't exist, add it
+            const newCart = [...prevCart, {...item, quantity: 1}];
+            console.log("New cart:", newCart);
+            return newCart;
+        }
+    });
+};
+
+
+
+const removeFromCart = (itemId) => {
+    setCartItems(cartItems.filter(item => item.itemId !== itemId));
+}
+
+const updateQuantity = (itemId, newQuantity) => {
+    setCartItems(cartItems.map(item => item.itemId === itemId ? {...item, quantity: newQuantity} : item ))
+
+}
+
     useEffect(() => {
         async function loadData() {
           
@@ -52,9 +96,13 @@ export const AppContextProvider = (props) => {
         categories,
         setCategories,
         auth,
-        setAuthData,
         itemsData,
-        setItemsData  
+        setAuthData,
+        setItemsData,
+        addToCart,
+        cartItems,
+        removeFromCart,
+        updateQuantity,
     }
 
     return (

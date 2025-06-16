@@ -10,7 +10,8 @@ import {useContext, useState} from "react";
 const Explore = () => {
     const {categories} = useContext(AppContext);
     const [selectedCategory, setSelectedCategory] = useState("");
-   
+    const [customerName, setCustomerName] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
     return (
        <div className="explore-container text-light">
         <div className="left-column">
@@ -29,7 +30,12 @@ const Explore = () => {
         </div>
         <div className="right-column d-flex flex-column">
         <div className="customer-form-container" style={{height: '15%'}}>
-               <CustomerForm/>
+               <CustomerForm 
+                    customerName={selectedCategory}
+                     mobileNumber={mobileNumber}
+                     setMobileNumber={setMobileNumber}
+                     setCustomerName={setCustomerName}
+               />
         </div>
         
         
